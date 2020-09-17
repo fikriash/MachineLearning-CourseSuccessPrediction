@@ -1,0 +1,168 @@
+<center>
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <title>Prediction</title>
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg bg-dark">
+            <!-- Judul Dashboard -->
+            <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('index')}}">Project</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('visualization')}}">Data Visualization</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('db_fn')}}">Input New Data</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('pred_lr')}}">Course Prediction<span class="sr-only">(current)</span></a>
+                </li>
+                </ul>
+            </div>
+            </nav>
+    <br>
+    <br>
+    <br>
+    <p class="text-center"><b>Dataset</b></p>
+
+    <div class='table-bordered' style='overflow: auto; height: 200px; width: 35%; margin:0 auto'>
+        <table>
+            <th>
+                <td>course_id</td>
+                <td>is_paid</td>
+                <td>price</td>
+                <td>num_subscribers</td>
+                <td>num_reviews</td>
+                <td>num_lectures</td>
+                <td>level</td>
+                <td>content_duration</td>
+                <td>subject</td>
+                <td>year_p</td>
+                <td>month_p</td>
+                <td>date_p</td>
+                <td>is_success</td>
+            </th>
+            {% for item in data %}
+            <tr>
+                <td>*</td>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>{{item[2]}}</td>
+                <td>{{item[3]}}</td>
+                <td>{{item[4]}}</td>
+                <td>{{item[5]}}</td>
+                <td>{{item[6]}}</td>
+                <td>{{item[7]}}</td>
+                <td>{{item[8]}}</td>
+                <td>{{item[9]}}</td>
+                <td>{{item[10]}}</td>
+                <td>{{item[11]}}</td>
+                <td>{{item[12]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <form method="POST" action="http://localhost:5000/pred_result">
+        <br>
+        <p class="text-center"><b>New Course Prediction</b>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="course_id">Course ID:</label></p>
+                    <input type="number" name="course_id" step="1" min="1" max="2000000" style="width: 250px" id="course_id" class="form-control" required=True/>
+                </div>
+            </div>
+            <br>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="price">Price:</label></p>
+                    <input type="number" name="price" step="1" min="0" max="1000" style="width: 250px" id="price" class="form-control" required=True/>
+                </div>
+            </div>
+            <br>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="num_lectures">Num Lectures:</label></p>
+                    <input type="number" name="num_lectures" step="1" min="1" max="1000" style="width: 250px" id="num_lectures" class="form-control" required=True/>
+                </div>
+            </div>
+            </div>
+            <br>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="content_duration">Content Duration:</label></p>
+                    <input type="number" name="content_duration" step="0.01" min="0.01" max="1000" style="width: 250px" id="content_duration" class="form-control" required=True/>
+                </div>
+            </div>
+            <br>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="year_p">Publish Year:</label></p>
+                    <input type="number" name="year_p" step="1" min="2011" max="9999" style="width: 250px" id="year_p" class="form-control" required=True/>
+                </div>
+            </div>
+            <br>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="date_p">Publish Date:</label></p>
+                    <input type="number" name="date_p" step="1" min="1" max="31" style="width: 250px" id="date_p" class="form-control" required=True/>
+                </div>
+            </div>
+            <br>
+            <div class="row" style="width: 300px">
+                <div class="col-md-6" style="width: 500px">
+                    <p class="text-justify"><label for="month_p">Publish Month:</label></p>
+                    <input type="number" name="month_p" step="1" min="1" max="12" style="width: 250px" id="month_p" class="form-control" required=True/>
+                </div>
+            </div>
+            <br>
+            <div class="input-group mb-3" style="width: 500px">
+                <span class="input-group-text" style="width: 125px">Level?</span>
+                <select name="level" style="width: 250px" class="form-control" required="required">
+                <option value="0">All Levels</option>
+                <option value="1">Beginner Level</option>
+                <option value="2">Intermediate Level</option>
+                <option value="3">Expert Level</option>
+                <option disabled selected hidden>Course Level?</option>
+            </select>
+            </div>
+            <div class="input-group mb-3" style="width: 500px">
+                <span class="input-group-text" style="width: 125px">Is Paid?</span>
+                <select name="is_paid" style="width: 250px" class="form-control" required="required">
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+                <option disabled selected hidden>Is the course paid?</option>
+            </select>
+            </div>
+            <div class="input-group mb-3" style="width: 500px">
+                <span class="input-group-text" style="width: 125px">Subject:</span>
+                <select name="subject" style="width: 250px" class="form-control" required="required">
+                <option value="business">Business Finance</option>
+                <option value="graphic">Graphic Design</option>
+                <option value="music">Music Instruments</option>
+                <option value="web">Web Development</option>
+                <option disabled selected hidden>Subject of course?</option>
+            </select>
+            </div>
+        </p>
+        <br>
+        <button type="submit" style="background-color: rgb(4,122,133); color: whitesmoke" class="btn btn-info">Predict Success Percentage</button>
+    </form>
+    <br>
+</center>

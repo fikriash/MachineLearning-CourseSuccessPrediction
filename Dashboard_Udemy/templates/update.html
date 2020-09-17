@@ -1,0 +1,189 @@
+<center>
+    
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <title>Input New Data</title>
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg bg-dark">
+          <!-- Judul Dashboard -->
+          <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('index')}}">Project</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('visualization')}}">Data Visualization</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('db_fn')}}">Input New Data</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{url_for('pred_lr')}}">Course Prediction<span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    <br>
+    <br>
+    <br>
+    <p><b>Table</b></p>
+
+    <div class='table-bordered' style='overflow: auto; height: 200px; width: 35%; margin:0 auto'>
+        <table>
+            <th>
+                <td>course_id</td>
+                <td>is_paid</td>
+                <td>price</td>
+                <td>num_subscribers</td>
+                <td>num_reviews</td>
+                <td>num_lectures</td>
+                <td>level</td>
+                <td>content_duration</td>
+                <td>subject</td>
+                <td>year_p</td>
+                <td>month_p</td>
+                <td>date_p</td>
+                <td>is_success</td>
+            </th>
+            {% for item in data %}
+            <tr>
+                <td>*</td>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>{{item[2]}}</td>
+                <td>{{item[3]}}</td>
+                <td>{{item[4]}}</td>
+                <td>{{item[5]}}</td>
+                <td>{{item[6]}}</td>
+                <td>{{item[7]}}</td>
+                <td>{{item[8]}}</td>
+                <td>{{item[9]}}</td>
+                <td>{{item[10]}}</td>
+                <td>{{item[11]}}</td>
+                <td>{{item[12]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <form method="POST" action="http://localhost:5000/update_fn">
+        <br>
+        <p><b>Input New Data</b></p>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="course_id">Course ID:</label></p>
+                <input type="number" name="ucourse_id" step="1" min="1" max="2000000" style="width: 250px" id="course_id" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="price">Price:</label></p>
+                <input type="number" name="uprice" step="1" min="0" max="1000" style="width: 250px" id="price" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="num_subscribers">Number Subscribers:</label></p>
+                <input type="number" name="unum_subscribers" step="1" min="0" max="500000" style="width: 250px" id="num_subscribers" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="num_reviews">Number Reviews:</label></p>
+                <input type="number" name="unum_reviews" step="1" min="1" max="50000" style="width: 250px" id="num_reviews" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="num_lectures">Num Lectures:</label></p>
+                <input type="number" name="unum_lectures" step="1" min="1" max="1000" style="width: 250px" id="num_lectures" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="content_duration">Content Duration:</label></p>
+                <input type="number" name="ucontent_duration" step="0.01" min="0.01" max="1000" style="width: 250px" id="content_duration" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="year_p">Publish Year:</label></p>
+                <input type="number" name="uyear_p" step="1" min="2011" max="9999" style="width: 250px" id="year_p" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="date_p">Publish Date:</label></p>
+                <input type="number" name="udate_p" step="1" min="1" max="31" style="width: 250px" id="date_p" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="width: 300px">
+            <div class="col-md-6" style="width: 500px">
+                <p class="text-justify"><label for="month_p">Publish Month:</label></p>
+                <input type="number" name="umonth_p" step="1" min="1" max="12" style="width: 250px" id="month_p" class="form-control" required=True/>
+            </div>
+        </div>
+        <br>
+        <div class="input-group mb-3" style="width: 500px">
+            <span class="input-group-text" style="width: 125px">Level:</span>
+            <select name="ulevel" style="width: 250px" class="form-control" required="required">
+            <option value="All Levels">All Levels</option>
+            <option value="Beginner Level">Beginner Level</option>
+            <option value="Intermediate Level">Intermediate Level</option>
+            <option value="Expert Level">Expert Level</option>
+            <option disabled selected hidden>Course Level?</option>
+        </select>
+        </div>
+        <div class="input-group mb-3" style="width: 500px">
+            <span class="input-group-text" style="width: 125px">Is Paid?:</span>
+            <select name="uis_paid" style="width: 250px" class="form-control" required="required">
+            <option value="True">yes</option>
+            <option value="False">no</option>
+            <option disabled selected hidden>Is the course paid?</option>
+        </select>
+        </div>
+        <div class="input-group mb-3" style="width: 500px">
+            <span class="input-group-text" style="width: 125px">Subject:</span>
+            <select name="usubject" style="width: 250px" class="form-control" required="required">
+            <option value="Business Finance">Business Finance</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Musical Instruments">Music Instruments</option>
+            <option value="Web Development">Web Development</option>
+            <option disabled selected hidden>Subject of course?</option>
+        </select>
+        </div>
+        <div class="input-group mb-3" style="width: 500px">
+            <span class="input-group-text" style="width: 125px">Is Success?:</span>
+            <select name="uis_success" style="width: 250px" class="form-control" required="required">
+            <option value="1">yes</option>
+            <option value="0">no</option>
+            <option disabled selected hidden>Is the course success?</option>
+        </select>
+        </div>
+        <br>
+        <button type="submit" style="background-color: rgb(4,122,133); color: whitesmoke" class="btn btn-info">Input Data</button>
+    </form>
+    <br>
+</center>
