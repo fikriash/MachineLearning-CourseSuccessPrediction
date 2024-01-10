@@ -1,5 +1,4 @@
 # Udemy Course - Success Percentage Prediction of course release 
-http://udemy.com/
 
 ![](https://i.ibb.co/vHJvqDc/u.png)
 
